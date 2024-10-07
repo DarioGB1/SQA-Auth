@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Models\User;
 use \stdClass;
+//Clase para manejar las funciones de autenticacion
 class AuthController extends Controller
 {
     public function register(Request $request){

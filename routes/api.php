@@ -13,7 +13,7 @@ use App\Http\Controllers\AuthController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+//Rutas de la API para manejar las funciones de autenticacion
 Route::middleware('auth:sanctum')->get('logout', [AuthController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
