@@ -17,20 +17,31 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8'
         ]);
+
         if ($validator->fails()){
             return response()->json($validator->errors());
         }
 
+        // Asignamos el tipo de usuario por defecto
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'user_type' => 'usuario'  // Tipo de usuario por defecto
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['user' => $user, 'access_token' => $token, 'token_type' => 'Bearer',]);
+        // Asegúrate de devolver el campo user_type en la respuesta
+        return response()->json([
+            'user' => $user,
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+            'user_type' => $user->user_type // Incluye explícitamente el user_type
+        ]);
     }
+
+
 
     public function login(Request $request){
 
